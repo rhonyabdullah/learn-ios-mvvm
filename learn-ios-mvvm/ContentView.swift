@@ -9,23 +9,27 @@ import SwiftUI
 
 struct ContentView: View {
     
-    @State var increment = 0
+    @ObservedObject private var counterVM: CounterViewModel
+    
+    init() {
+        counterVM = CounterViewModel()
+    }
     
     var body: some View {
         VStack {
             Image(systemName: "globe")
                 .imageScale(.large)
                 .foregroundStyle(.tint)
-        
+            
             Text("Premium")
                 .frame(width: 200, height: 100)
                 .font(.largeTitle)
             
-            Text("\(increment)")
+            Text("\(counterVM.value)")
                 .font(.title)
             
             Button("Increment") {
-                increment += 1
+                counterVM.increment()
             }
         }
         .padding()
