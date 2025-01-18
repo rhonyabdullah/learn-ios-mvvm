@@ -62,3 +62,4 @@ fastlane/screenshots/**/*.png
 fastlane/test_output
 
 .DS_Store
+MoviesApp (part 19 ios mvvm)/MoviesApp/Keys/APIKeys.swift
