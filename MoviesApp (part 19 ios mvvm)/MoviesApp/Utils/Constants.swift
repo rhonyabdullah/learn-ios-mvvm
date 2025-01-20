@@ -9,5 +9,5 @@
 import Foundation
 
 struct Constants {
-    
+    static let BASE_URL = "http://www.omdbapi.com"
 }

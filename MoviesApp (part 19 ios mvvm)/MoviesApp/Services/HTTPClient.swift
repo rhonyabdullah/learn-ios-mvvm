@@ -20,8 +20,7 @@ class HTTPClient {
         search: String,
         completion: @escaping (Result<[Movie]?, NetworkError>) -> Void
     ) {
-        guard let url = URL(string: "http://www.omdbapi.com/?apikey=\(APIKeys.API_KEYS)&s=\(search)")
-            else {
+        guard let url = URL.forMoviesByName(search) else {
             return completion(.failure(.badURL))
         }
 
