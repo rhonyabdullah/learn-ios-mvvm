@@ -9,8 +9,23 @@
 import SwiftUI
 
 struct MovieListScreen: View {
+
+    @ObservedObject private var movieListVM: MovieListViewModel
+
+    init() {
+        self.movieListVM = MovieListViewModel()
+        self.movieListVM.searchByName("race")
+    }
+
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        let listView = MovieListView(movies: self.movieListVM.movies)
+        VStack {
+            if #available(iOS 14.0, *) {
+                listView.navigationTitle("Movies")
+            } else {
+                listView.navigationBarTitle("Movies")
+            }
+        }.embedNavigationView()
     }
 }
 
