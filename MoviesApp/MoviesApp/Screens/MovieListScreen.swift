@@ -11,15 +11,25 @@ import SwiftUI
 struct MovieListScreen: View {
 
     @ObservedObject private var movieListVM: MovieListViewModel
+    @State private var searchTerm: String = ""
 
     init() {
         self.movieListVM = MovieListViewModel()
-        self.movieListVM.searchByName("race")
     }
 
     var body: some View {
         let listView = MovieListView(movies: self.movieListVM.movies)
         VStack {
+            TextField(
+                "Search",
+                text: $searchTerm,
+                onEditingChanged: { _ in },
+                onCommit: {
+                    self.movieListVM.searchByName(self.searchTerm)
+                }
+            ).textFieldStyle(RoundedBorderTextFieldStyle())
+                .padding()
+            Spacer()
             if #available(iOS 14.0, *) {
                 listView.navigationTitle("Movies")
             } else {
