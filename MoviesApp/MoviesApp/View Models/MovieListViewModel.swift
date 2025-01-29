@@ -8,22 +8,33 @@
 
 import Foundation
 
-class MovieListViewModel: ObservableObject {
+class MovieListViewModel: ViewModelBase {
 
     @Published var movies = [MovieViewModel]() //notify subscriber
     let httpClient = HTTPClient()
 
     func searchByName(_ name: String) {
-        httpClient.getMoviesBY(search: name) { result in
+
+        if name.isEmpty {
+            return
+        }
+        
+        self.loadingState = .loading
+
+        httpClient.getMoviesBY(search: name.trimmedAndEscaped()) { result in
             switch result {
             case .success(let success):
                 if let movies = success {
                     DispatchQueue.main.async { // to update the movies should be on main thread
                         self.movies = movies.map(MovieViewModel.init)
+                        self.loadingState = .success
                     }
                 }
             case .failure(let failure):
                 print(failure.localizedDescription)
+                DispatchQueue.main.async {
+                    self.loadingState = .failed
+                }
             }
         }
     }

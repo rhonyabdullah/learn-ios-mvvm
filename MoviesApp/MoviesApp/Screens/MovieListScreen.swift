@@ -30,11 +30,16 @@ struct MovieListScreen: View {
             ).textFieldStyle(RoundedBorderTextFieldStyle())
                 .padding()
             Spacer()
-            if #available(iOS 14.0, *) {
-                listView.navigationTitle("Movies")
-            } else {
-                listView.navigationBarTitle("Movies")
+            .navigationBarTitle("Movies")
+
+            if self.movieListVM.loadingState == .success {
+                listView
+            } else if self.movieListVM.loadingState == .failed {
+                FailedView()
+            } else if self.movieListVM.loadingState == .loading {
+                LoadingView()
             }
+            Spacer()
         }.embedNavigationView()
     }
 }
