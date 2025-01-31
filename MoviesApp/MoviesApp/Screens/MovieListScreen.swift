@@ -18,7 +18,6 @@ struct MovieListScreen: View {
     }
 
     var body: some View {
-        let listView = MovieListView(movies: self.movieListVM.movies)
         VStack {
             TextField(
                 "Search",
@@ -30,10 +29,11 @@ struct MovieListScreen: View {
             ).textFieldStyle(RoundedBorderTextFieldStyle())
                 .padding()
             Spacer()
-            .navigationBarTitle("Movies")
+                .navigationBarTitle("Movies")
 
             if self.movieListVM.loadingState == .success {
-                listView
+
+                MovieListView(movies: self.movieListVM.movies)
             } else if self.movieListVM.loadingState == .failed {
                 FailedView()
             } else if self.movieListVM.loadingState == .loading {

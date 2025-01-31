@@ -10,8 +10,12 @@ import Foundation
 import SwiftUI
 
 extension View {
-    
+
     func embedNavigationView() -> some View {
-        return NavigationView { self }
+        if #available(iOS 16.0, *) {
+            return NavigationStack { self }
+        } else {
+            return NavigationView { self }
+        }
     }
 }
