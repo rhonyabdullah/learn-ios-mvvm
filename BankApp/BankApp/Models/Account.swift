@@ -16,14 +16,17 @@ enum AccountType: String, Codable, CaseIterable {
 extension AccountType {
     var title: String {
         switch self {
-            case .savings:
-                return "Savings"
-            case .checking:
-                return "Checking"
+        case .savings:
+            return "Savings"
+        case .checking:
+            return "Checking"
         }
     }
 }
 
 struct Account: Codable {
-    
+    let name: String
+    let id: String
+    let type: AccountType
+    let balance: Double
 }

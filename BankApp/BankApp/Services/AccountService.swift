@@ -18,7 +18,7 @@ class AccountService {
 
     private init() { }
 
-    private let shared = AccountService()
+    static let shared = AccountService()
 
     func getAllAccounts(completion: @escaping (Result<[Account]?, NetworkError>) -> Void) {
         guard let url = URL.urlForAccounts() else {
