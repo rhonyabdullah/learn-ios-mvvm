@@ -10,8 +10,9 @@ import Foundation
 
 class AccountSummaryViewModel: ObservableObject {
 
-    private var _accounts: [Account] = []
-    var accounts: [AccountViewModel] = []
+    private var _accountModel: [Account] = []
+
+    @Published var accounts: [AccountViewModel] = []
 
     var total: Double {
         accounts.map { $0.balance }.reduce(0, +)
@@ -22,11 +23,13 @@ class AccountSummaryViewModel: ObservableObject {
             switch result {
             case .success(let accounts):
                 if let accounts = accounts {
-                    self._accounts = accounts
-                    self.accounts = accounts.map(AccountViewModel.init)
+                    self._accountModel = accounts
+                    DispatchQueue.main.async {
+                        self.accounts = accounts.map(AccountViewModel.init)
+                    }
                 }
             case .failure(let error):
-                print(error.localizedDescription)
+                print("get all accounts error: \(error.localizedDescription)")
             }
         }
     }
@@ -40,10 +43,10 @@ class AccountViewModel {
     }
 
     var name: String {
-        account.name
+        self.account.name
     }
 
-    var accountID: String {
+    var accountID: UUID {
         account.id
     }
 
