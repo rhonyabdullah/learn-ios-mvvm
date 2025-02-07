@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		6B20FEE72D54FE4000790BB3 /* CreateAccountRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B20FEE62D54FE4000790BB3 /* CreateAccountRequest.swift */; };
 		6B20FEE92D54FECF00790BB3 /* CreateAccountResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B20FEE82D54FECF00790BB3 /* CreateAccountResponse.swift */; };
+		6BB03D462D564BCD004068EE /* AddAccountViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6BB03D452D564BCD004068EE /* AddAccountViewModel.swift */; };
 		6BE014282D4E60A600BC86AF /* Account.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6BE014272D4E60A600BC86AF /* Account.swift */; };
 		6BE0142A2D4E63E600BC86AF /* AccountService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6BE014292D4E63E600BC86AF /* AccountService.swift */; };
 		6BE0142C2D4FB4FE00BC86AF /* AccountSummaryViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6BE0142B2D4FB4FD00BC86AF /* AccountSummaryViewModel.swift */; };
@@ -27,6 +28,7 @@
 /* Begin PBXFileReference section */
 		6B20FEE62D54FE4000790BB3 /* CreateAccountRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateAccountRequest.swift; sourceTree = "<group>"; };
 		6B20FEE82D54FECF00790BB3 /* CreateAccountResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateAccountResponse.swift; sourceTree = "<group>"; };
+		6BB03D452D564BCD004068EE /* AddAccountViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddAccountViewModel.swift; sourceTree = "<group>"; };
 		6BE014272D4E60A600BC86AF /* Account.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Account.swift; sourceTree = "<group>"; };
 		6BE014292D4E63E600BC86AF /* AccountService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountService.swift; sourceTree = "<group>"; };
 		6BE0142B2D4FB4FD00BC86AF /* AccountSummaryViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountSummaryViewModel.swift; sourceTree = "<group>"; };
@@ -146,6 +148,7 @@
 			isa = PBXGroup;
 			children = (
 				6BE0142B2D4FB4FD00BC86AF /* AccountSummaryViewModel.swift */,
+				6BB03D452D564BCD004068EE /* AddAccountViewModel.swift */,
 			);
 			path = "View Models";
 			sourceTree = "<group>";
@@ -224,6 +227,7 @@
 				8D40C33824E1C4540040822F /* Double+Extensions.swift in Sources */,
 				8D40C32324E1C4080040822F /* AppDelegate.swift in Sources */,
 				6BE0142E2D5077DF00BC86AF /* AccountSummaryScreen.swift in Sources */,
+				6BB03D462D564BCD004068EE /* AddAccountViewModel.swift in Sources */,
 				8D40C33A24E1C4640040822F /* URL+Extensions.swift in Sources */,
 				6BE014302D507AC600BC86AF /* AccountListView.swift in Sources */,
 				8D40C32524E1C4080040822F /* SceneDelegate.swift in Sources */,
