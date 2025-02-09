@@ -9,8 +9,8 @@
 import Foundation
 
 enum AccountType: String, Codable, CaseIterable {
-    case saving
     case checking
+    case saving
 }
 
 extension AccountType {

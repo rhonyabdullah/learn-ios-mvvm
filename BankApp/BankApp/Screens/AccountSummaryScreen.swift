@@ -11,6 +11,7 @@ import SwiftUI
 struct AccountSummaryScreen: View {
 
     @ObservedObject var viewModel = AccountSummaryViewModel()
+    @State private var isPresented: Bool = false
 
     var body: some View {
         VStack {
@@ -26,7 +27,13 @@ struct AccountSummaryScreen: View {
             }
         }.onAppear {
             self.viewModel.getAllAccounts()
-        }.navigationBarTitle("Account Summary")
+        }
+        .sheet(isPresented: $isPresented) {
+            AddAccountScreen()
+        }
+        .navigationBarItems(trailing: Button("Add Account") {
+            self.isPresented = true
+        }).navigationBarTitle("Account Summary")
             .embedInNavigationView()
     }
 

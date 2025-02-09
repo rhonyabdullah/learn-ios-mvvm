@@ -61,8 +61,21 @@ extension AddAccountViewModel {
             balance: Double(balance) ?? 0
         )
 
-        AccountService.shared.createAccount(createAccountrequest: request) { Result in
-
+        AccountService.shared.createAccount(createAccountrequest: request) { result in
+            switch result {
+            case .success(let response):
+                if response.success {
+                    completion(true)
+                } else {
+                    if let error = response.error {
+                        self.errorMessage = error
+                        completion(false)
+                    }
+                }
+            case .failure(let error):
+                print("Error: \(error.localizedDescription)")
+                completion(false)
+            }
         }
     }
 }
