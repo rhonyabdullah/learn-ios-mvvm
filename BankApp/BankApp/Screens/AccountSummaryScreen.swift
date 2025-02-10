@@ -25,16 +25,25 @@ struct AccountSummaryScreen: View {
                     Spacer()
                 }
             }
-        }.onAppear {
+        }
+        .onAppear {
             self.viewModel.getAllAccounts()
         }
-        .sheet(isPresented: $isPresented) {
-            AddAccountScreen()
-        }
-        .navigationBarItems(trailing: Button("Add Account") {
-            self.isPresented = true
-        }).navigationBarTitle("Account Summary")
-            .embedInNavigationView()
+        .sheet(
+            isPresented: $isPresented,
+            onDismiss: {
+                viewModel.getAllAccounts()
+            },
+            content: {
+                AddAccountScreen()
+            }
+        )
+        .navigationBarItems(
+            trailing: Button("Add Account") {
+                self.isPresented = true
+            }
+        ).navigationBarTitle("Account Summary")
+        .embedInNavigationView()
     }
 
 }
