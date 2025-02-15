@@ -15,7 +15,7 @@ struct TransferFundsScreen: View {
     @State private var isFromAccount = true
 
     var actionSheetButtons: [Alert.Button] {
-        var actionButtons = viewModel.accounts.map { account in
+        var actionButtons = viewModel.filteredAccounts.map { account in
             Alert.Button.default(
                 Text("\(account.name) (\(account.accountType))")
             ) {
@@ -72,15 +72,18 @@ struct TransferFundsAccountSelectionView: View {
             }.frame(maxWidth: .infinity, maxHeight: 50)
                 .background(Color.green)
                 .foregroundColor(Color.white)
-                .padding(EdgeInsets(top: 0, leading: 12, bottom: 0, trailing: 12))
+                .padding(EdgeInsets(top: 0, leading: 16, bottom: 0, trailing: 16))
 
             Button("To \(self.viewModel.toAccountType)") {
                 isFromAccount = false
                 showSheet = true
-            }.frame(maxWidth: .infinity, maxHeight: 50)
+            }
+                .frame(maxWidth: .infinity, maxHeight: 50)
                 .background(Color.green)
                 .foregroundColor(Color.white)
-                .padding(EdgeInsets(top: 0, leading: 12, bottom: 0, trailing: 12))
+                .opacity(viewModel.fromAccount != nil ? 1.0 : 05)
+                .disabled(viewModel.fromAccount != nil)
+                .padding(EdgeInsets(top: 0, leading: 16, bottom: 0, trailing: 16))
         }
     }
 }
