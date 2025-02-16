@@ -13,6 +13,7 @@ class TransferFundsViewModel: ObservableObject {
     var fromAccount: AccountViewModel?
     var toAccount: AccountViewModel?
 
+    @Published var message: String? = nil
     @Published var accounts: [AccountViewModel] = []
     var amount: String = ""
 
@@ -44,7 +45,7 @@ class TransferFundsViewModel: ObservableObject {
         toAccount != nil ? toAccount!.accountType : ""
     }
 
-    func submitTransfer() {
+    func submitTransfer(completion: @escaping () -> Void) {
         
         if !isValid() {
             return
@@ -57,12 +58,22 @@ class TransferFundsViewModel: ObservableObject {
             return
         }
         let transferFundRequest = TransferFundRequest(
-            accountFromId: fromAccount.accountID.uuidString,
-            accountToId: toAccount.accountID.uuidString,
+            accountFromId: fromAccount.accountID.uuidString.lowercased(),
+            accountToId: toAccount.accountID.uuidString.lowercased(),
             amount: amount
         )
         AccountService.shared.transferFunds(transferFundRequest: transferFundRequest) { result in
-            
+            switch result {
+                case .success(let response):
+                    if response.success {
+                        completion()
+                    } else {
+                        self.message = response.error ?? "An error occurred"
+                        
+                    }
+                case .failure(let error):
+                    self.message = error.localizedDescription
+            }
         }
     }
 
