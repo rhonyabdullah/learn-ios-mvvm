@@ -33,69 +33,39 @@ struct TransferFundsScreen: View {
     }
 
     var body: some View {
-        VStack {
-            AccountListView(accounts: viewModel.accounts)
-                .frame(height: 300)
-            TransferFundsAccountSelectionView(
-                viewModel: self.viewModel,
-                showSheet: $showSheet,
-                isFromAccount: $isFromAccount
-            )
-            Spacer()
-                .onAppear {
-                viewModel.populateAccounts()
-            }
-            Text(self.viewModel.message ?? "")
-            Button("Submit Transfer") {
-                viewModel.submitTransfer {
-                    self.presentationMode.wrappedValue.dismiss()
-                }
-            }.padding(EdgeInsets(top: 0, leading: 16, bottom: 0, trailing: 16))
-                .actionSheet(isPresented: $showSheet) {
-                ActionSheet(
-                    title: Text("Transfer Funds"),
-                    message: Text("Choose an account"),
-                    buttons: self.actionSheetButtons
+        ScrollView {
+            VStack {
+                AccountListView(accounts: viewModel.accounts)
+                    .frame(height: 300)
+                TransferFundsAccountSelectionView(
+                    viewModel: self.viewModel,
+                    showSheet: $showSheet,
+                    isFromAccount: $isFromAccount
                 )
+                Spacer()
+                    .onAppear {
+                    viewModel.populateAccounts()
+                }
+                Text(self.viewModel.message ?? "")
+                Button("Submit Transfer") {
+                    viewModel.submitTransfer {
+                        self.presentationMode.wrappedValue.dismiss()
+                    }
+                }.padding(EdgeInsets(top: 0, leading: 16, bottom: 0, trailing: 16))
+                    .actionSheet(isPresented: $showSheet) {
+                    ActionSheet(
+                        title: Text("Transfer Funds"),
+                        message: Text("Choose an account"),
+                        buttons: self.actionSheetButtons
+                    )
+                }
             }
-        }.navigationBarTitle("Transfer Funds")
+        }
+            .navigationBarTitle("Transfer Funds")
             .embedInNavigationView()
     }
 }
 
 #Preview {
     TransferFundsScreen()
-}
-
-struct TransferFundsAccountSelectionView: View {
-
-    @ObservedObject var viewModel: TransferFundsViewModel
-    @Binding var showSheet: Bool
-    @Binding var isFromAccount: Bool
-
-    var body: some View {
-        VStack(spacing: 12) {
-            Button("From \(self.viewModel.fromAccountType)") {
-                isFromAccount = true
-                showSheet = true
-            }.frame(maxWidth: .infinity, maxHeight: 50)
-                .background(Color.green)
-                .foregroundColor(Color.white)
-                .padding(EdgeInsets(top: 0, leading: 16, bottom: 0, trailing: 16))
-
-            Button("To \(self.viewModel.toAccountType)") {
-                isFromAccount = false
-                showSheet = true
-            }
-                .frame(maxWidth: .infinity, maxHeight: 50)
-                .background(Color.green)
-                .foregroundColor(Color.white)
-                .opacity(viewModel.fromAccount != nil ? 1.0 : 0.5)
-                .disabled(viewModel.fromAccount == nil)
-                .padding(EdgeInsets(top: 0, leading: 16, bottom: 0, trailing: 16))
-
-            TextField("Amount", text: $viewModel.amount)
-                .textFieldStyle(RoundedBorderTextFieldStyle())
-        }
-    }
 }

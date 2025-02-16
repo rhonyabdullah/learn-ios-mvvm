@@ -36,32 +36,42 @@ struct AccountSummaryScreen: View {
                 }
             }
         }
-        .onAppear {
+            .onAppear {
             self.viewModel.getAllAccounts()
         }
-        .sheet(
-            isPresented: $isPresented,
+            .sheet(
+            isPresented: self.$isPresented,
             onDismiss: {
                 viewModel.getAllAccounts()
             },
             content: {
-                switch self.activeSheet {
-                    case .addAccount:
-                        AddAccountScreen()
-                    case .transferFunds:
-                        TransferFundsScreen()
-                }
+                AccountSummarySheetView(activeSheet: self.$activeSheet)
             }
         )
-        .navigationBarItems(
+            .navigationBarItems(
             trailing: Button("Add Account") {
                 self.activeSheet = .addAccount
                 self.isPresented = true
             }
         ).navigationBarTitle("Account Summary")
-        .embedInNavigationView()
+            .embedInNavigationView()
     }
 
+}
+
+// we have to use Binding View, there is bug on sheet State
+struct AccountSummarySheetView: View {
+
+    @Binding var activeSheet: ActiveSheet
+
+    var body: some View {
+        switch activeSheet {
+        case .addAccount:
+            AddAccountScreen()
+        case .transferFunds:
+            TransferFundsScreen()
+        }
+    }
 }
 
 // make sure glitch server is up and running first
