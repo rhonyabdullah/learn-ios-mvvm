@@ -81,8 +81,8 @@ struct TransferFundsAccountSelectionView: View {
                 .frame(maxWidth: .infinity, maxHeight: 50)
                 .background(Color.green)
                 .foregroundColor(Color.white)
-                .opacity(viewModel.fromAccount != nil ? 1.0 : 05)
-                .disabled(viewModel.fromAccount != nil)
+                .opacity(viewModel.fromAccount != nil ? 1.0 : 0.5)
+                .disabled(viewModel.fromAccount == nil)
                 .padding(EdgeInsets(top: 0, leading: 16, bottom: 0, trailing: 16))
         }
     }
