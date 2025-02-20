@@ -12,10 +12,13 @@ class AddWeatherViewModel: ObservableObject {
     @Published var city: String = ""
 
     func save(completion: @escaping (WeatherViewModel) -> Void) {
+        print("saving city: \(city)")
         Webservice().getWeatherByCity(city: city) { result in
             switch result {
             case .success(let weather):
-                completion(WeatherViewModel(weather: weather))
+                DispatchQueue.main.async {
+                    completion(WeatherViewModel(weather: weather))
+                }
             case .failure(let error):
                 print(error)
             }

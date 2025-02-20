@@ -13,6 +13,8 @@ struct WeatherViewModel {
     init(weather: Weather) {
         self.weather = weather
     }
+    
+    let id = UUID()
 
     var temperature: Double {
         return weather.temperature

@@ -20,7 +20,8 @@ struct AddCityScreen: View {
                 TextField("Enter city", text: $addWeatherViewModel.city)
                     .textFieldStyle(RoundedBorderTextFieldStyle())
                 Button("Save") {
-                    // save weather in environment object 
+                    // save weather in environment object
+                    print("add city button tapped")
                     addWeatherViewModel.save { weather in
                         store.addWeather(weather)
                         presentationMode.wrappedValue.dismiss()

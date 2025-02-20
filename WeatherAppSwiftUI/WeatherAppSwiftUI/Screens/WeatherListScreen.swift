@@ -23,8 +23,8 @@ struct WeatherListScreen: View {
     var body: some View {
 
         List {
-            ForEach(1...20, id: \.self) { index in
-                Text("\(index)")
+            ForEach(store.weatherList, id: \.id) { weather in
+                WeatherCell(weather: weather)
             }
         }
         .listStyle(PlainListStyle())
@@ -33,9 +33,9 @@ struct WeatherListScreen: View {
             content: { (item) in
                 switch item {
                 case .addNewCity:
-                        AddCityScreen().environmentObject(store)
+                    AddCityScreen().environmentObject(store)
                 case .settings:
-                        SettingsScreen()
+                    SettingsScreen()
                 }
             }
         )
@@ -68,23 +68,29 @@ struct WeatherListScreen_Previews: PreviewProvider {
 
 struct WeatherCell: View {
 
+    var weather: WeatherViewModel
+
     var body: some View {
         HStack {
             VStack(alignment: .leading, spacing: 15) {
-                Text("Houston")
+                Text(weather.city)
                     .fontWeight(.bold)
                 HStack {
                     Image(systemName: "sunrise")
-                    Text("\(Date().formatAsString())")
+                    Text("\(weather.sunrise.formatAsString())")
                 }
                 HStack {
                     Image(systemName: "sunset")
-                    Text("\(Date().formatAsString())")
+                    Text("\(weather.sunset.formatAsString())")
                 }
             }
             Spacer()
 
-            Text("72 F")
+            Spacer()
+            URLImage(
+                url: Constants.Urls.weatherUrlAsStringByIcon(icon: weather.icon)
+            ).frame(width: 50, height: 50)
+            Text("\(Int(weather.temperature)) K")
         }
         .padding()
         .background(
