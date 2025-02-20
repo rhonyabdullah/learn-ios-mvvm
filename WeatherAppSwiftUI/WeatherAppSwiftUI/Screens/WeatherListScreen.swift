@@ -68,6 +68,7 @@ struct WeatherListScreen_Previews: PreviewProvider {
 
 struct WeatherCell: View {
 
+    @EnvironmentObject var store: Store
     var weather: WeatherViewModel
 
     var body: some View {
@@ -90,7 +91,8 @@ struct WeatherCell: View {
             URLImage(
                 url: Constants.Urls.weatherUrlAsStringByIcon(icon: weather.icon)
             ).frame(width: 50, height: 50)
-            Text("\(Int(weather.temperature)) K")
+            
+            Text("\(Int(weather.getTemperatureByUnit(unit: store.selectedUnit))) \(String(store.selectedUnit.displayText.prefix(1)))")
         }
         .padding()
         .background(
